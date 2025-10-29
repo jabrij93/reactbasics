@@ -1,27 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
 import './App.css';
 import Header from './components/Header';
-import AddContent from './components/AddContact';
-import ContactList from './components/ContactList';
 import AddContact from './components/AddContact';
+import ContactList from './components/ContactList';
+import PopupMessage from './components/PopupMessage';
 
 function App() {
+  const LOCAL_STORAGE_KEY = "contacts";
   const [contacts, setContacts] = useState([]);
+  const [popup, setPopup] = useState({ show: false, message: '', type: 'success' });
 
   const addContactHandler = (contact) => {
-    console.log(contact)
-    setContacts([...contacts, contact]);
+    setContacts([...contacts, { id: uuid(), ...contact }]);
+    showPopup('Add new contact successfully!', 'success');
   };
 
-  return (
+  const removeContactHandler = (id) => {
+    const newContactList = contacts.filter((contact) => contact.id !== id);
+    setContacts(newContactList);
+    showPopup('Contact deleted successfully!', 'info');
+  };
 
-    <div className='ui container'> 
+  const showPopup = (message, type) => {
+    setPopup({ show: true, message, type });
+    setTimeout(() => setPopup({ show: false, message: '', type }), 2000);
+  };
+
+  // ✅ Load saved contacts from localStorage on app load
+  useEffect(() => {
+    const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (retrieveContacts) setContacts(retrieveContacts);
+  }, []);
+
+  // ✅ Save contacts to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+  }, [contacts]);
+
+  return (
+    <div className='ui container' style={{ margin: '20px', position: 'relative' }}>
       <Header />
       <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={contacts} />
-      {/* <ContactCard/> */}
+      <ContactList contacts={contacts} getContactId={removeContactHandler} />
+
+      {popup.show && <PopupMessage message={popup.message} type={popup.type} />}
     </div>
-  )
+  );
 }
 
 export default App;
