@@ -8,7 +8,10 @@ import PopupMessage from './components/PopupMessage';
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() => {
+    const storedContacts = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return storedContacts ? JSON.parse(storedContacts) : [];
+  });  
   const [popup, setPopup] = useState({ show: false, message: '', type: 'success' });
 
   const addContactHandler = (contact) => {
