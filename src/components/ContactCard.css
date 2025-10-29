@@ -1,0 +1,33 @@
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .contact-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .contact-info img {
+    margin-right: 10px;
+  }
+  
+  .contact-text {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+  }
+  
+  .delete-icon {
+    color: red;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding-left: 8px;
+  }
+  
+  .delete-icon:hover {
+    transform: scale(1.2);
+  }
+  
