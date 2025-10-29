@@ -28,7 +28,8 @@ class AddContact extends React.Component {
                             type='text' 
                             name='name' 
                             value={this.state.name}
-                            placeholder='Name' 
+                            placeholder='Name'
+                            style={{width: '50%'}} 
                             onChange={ (e) => {this.setState({name: e.target.value})}}
                         />
                     </div>
@@ -39,6 +40,7 @@ class AddContact extends React.Component {
                             name='email' 
                             value={this.state.email}
                             placeholder='Email'
+                            style={{width: '50%'}}
                             onChange={ (e) => {this.setState({email: e.target.value})}}
                         />
                     </div>
