@@ -26,9 +26,10 @@ const ContactList = (props) => {
 
   return (
     <div className='ui celled list'>
-      <h2 style={{ textAlign: 'left', marginBottom: '15px', color: '#333' }}>
-        Contacts
-      </h2>
+      <div style={{ textAlign: 'left', marginBottom: '15px', color: '#333' }}>
+        <h2> Contacts </h2>
+        <button className='ui button blue right'>Add Contact</button>
+      </div>
 
       {renderContactList.length > 0 ? (
         renderContactList
