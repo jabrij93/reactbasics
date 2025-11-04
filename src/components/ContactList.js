@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import ContactCard from './ContactCard'
 
 const ContactList = (props) => {
@@ -28,7 +29,9 @@ const ContactList = (props) => {
     <div className='ui celled list'>
       <div style={{ textAlign: 'left', marginBottom: '15px', color: '#333' }}>
         <h2> Contacts </h2>
-        <button className='ui button blue right'>Add Contact</button>
+        <Link to="/add">
+          <button className='ui button blue right'>Add Contact</button>
+        </Link>
       </div>
 
       {renderContactList.length > 0 ? (
