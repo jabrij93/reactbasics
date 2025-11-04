@@ -3,7 +3,7 @@ import './ContactCard.css'
 import user from '../images/user.png'
 
 const ContactCard = (props) => {
-  const { id, name, email } = props.contact
+  const { id, name, email } = props.contacts
 
   return (
     <div className='contact-item'>
