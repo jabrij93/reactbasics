@@ -43,12 +43,12 @@ function App() {
   }, [contacts]);
 
   return (
-    <div className='ui container' style={{ margin: '20px', position: 'relative' }}>
+    <div className='ui container' style={{ margin: '70px 20px 20px', position: 'relative' }}>
       <Router>
         <Header />
         <Switch>
+          <Route path="/" exact component={ContactList} />
           <Route path="/add" component={AddContact} />
-          <Route path="/" component={ContactList} />
         </Switch>
         {/* <AddContact addContactHandler={addContactHandler} />
         <ContactList contacts={contacts} getContactId={removeContactHandler} /> */}
