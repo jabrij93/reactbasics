@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import './App.css';
 import Header from './components/Header';
@@ -32,13 +33,13 @@ function App() {
     setTimeout(() => setPopup({ show: false, message: '', type }), 2000);
   };
 
-  // ✅ Load saved contacts from localStorage on app load
+  // Load saved contacts from localStorage on app load
   useEffect(() => {
     const retrieveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (retrieveContacts) setContacts(retrieveContacts);
   }, []);
 
-  // ✅ Save contacts to localStorage whenever they change
+  // Save contacts to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
   }, [contacts]);

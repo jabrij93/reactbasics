@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import user from '../images/user.png'
 
 const ContactDetail = (props) => {
-    console.log('CD:', props.location.state.contact);
-    const { name, email } = props.location.state.contact;
+  const { name, email } = props.location.state.contact
+
   return (
     <div className='main'>
         <div class name='ui card centered' >

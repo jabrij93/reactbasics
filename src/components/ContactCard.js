@@ -2,9 +2,24 @@ import React from 'react'
 import './ContactCard.css'
 import { Link } from 'react-router-dom'
 import user from '../images/user.png'
+import { useState } from 'react'
 
 const ContactCard = (props) => {
   const { id, name, email } = props.contacts
+  const [showConfirm, setShowConfirm] = useState(false)
+
+  const handleDeleteClick = () => {
+    setShowConfirm(true)
+  }
+
+  const handleConfirmDelete = () => {
+    props.clickHandler(id) // parent handles delete + redirect + popup
+    setShowConfirm(false)
+  }
+
+  const handleCancelDelete = () => {
+    setShowConfirm(false)
+  }
 
   return (
     <div className='contact-item'>
@@ -17,10 +32,30 @@ const ContactCard = (props) => {
           </Link>
         </div>
       </div>
-      <i
-        className='trash alternate outline icon delete-icon'
-        onClick={() => props.clickHandler(id)}
-      ></i>
+
+        <i
+          className='trash alternate outline icon delete-icon'
+          onClick={handleDeleteClick}
+        ></i>
+
+      {/* Confirmation popup */}
+      {showConfirm && (
+        <div className='confirm-popup'>
+          <div className='confirm-content'>
+            <p>Confirm delete this contact?</p>
+            <div className='confirm-buttons'>
+              <Link to="/">
+                <button onClick={handleConfirmDelete} className='yes-btn'>
+                  Yes
+                </button>
+              </Link>
+              <button onClick={handleCancelDelete} className='no-btn'>
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
