@@ -8,7 +8,7 @@ const ContactDetail = (props) => {
 
   return (
     <div className='main'>
-        <div class name='ui card centered' >
+        <div className='ui card centered' >
             <div className='image'>
                 <img src={user} alt="user" />
             </div>
@@ -17,7 +17,7 @@ const ContactDetail = (props) => {
                 <div className='description'> { email } </div>
             </div>
         </div>
-        <div className='center-div'>
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <Link to="/">
                 <button className='ui button blue center'> Back to Contact List </button>
             </Link>
