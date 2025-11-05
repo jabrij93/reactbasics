@@ -1,5 +1,6 @@
 import React from 'react'
 import './ContactCard.css'
+import { Link } from 'react-router-dom'
 import user from '../images/user.png'
 
 const ContactCard = (props) => {
@@ -10,8 +11,10 @@ const ContactCard = (props) => {
       <div className='contact-info'>
         <img className='ui avatar image' src={user} alt='user' />
         <div className='content'>
-          <div className='header'>{name}</div>
-          <div>{email}</div>
+          <Link to={{ pathname:`/contact/${id}`, state: { contact: props.contacts } }}>
+            <div className='header'>{name}</div>
+            <div>{email}</div>
+          </Link>
         </div>
       </div>
       <i
