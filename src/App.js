@@ -6,6 +6,7 @@ import Header from './components/Header';
 import AddContact from './components/AddContact';
 import ContactList from './components/ContactList';
 import PopupMessage from './components/PopupMessage';
+import ContactDetail from './components/ContactDetail';
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
@@ -63,6 +64,7 @@ function App() {
               addContactHandler={addContactHandler}
               />)}
           />
+          <Route path="/contact/:id" component={ContactDetail} />
         </Switch>
       </Router>
 
