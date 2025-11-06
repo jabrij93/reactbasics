@@ -65,7 +65,13 @@ function App() {
               addContactHandler={addContactHandler}
               />)}
           />
-          <Route path="/contact/:id" component={ContactDetail} />
+          <Route 
+            path="/contact/:id" 
+            render={(props) => (<ContactDetail 
+              {...props} 
+              clickHandler={removeContactHandler} 
+              />)} 
+          />
         </Switch>
       </Router>
 
