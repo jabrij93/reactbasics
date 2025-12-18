@@ -17,8 +17,13 @@ function App() {
   const [contacts, setContacts] = useState([]);  
   const [popup, setPopup] = useState({ show: false, message: '', type: 'success' });
 
-  const addContactHandler = (contact) => {
-    setContacts([...contacts, { id: uuid(), ...contact }]);
+  const addContactHandler = async (contact) => {
+    
+    const request = { id:uuid(), ...contact };
+
+    const response = await api.post("/contacts", request)
+
+    setContacts([...contacts, response.data]);
     showPopup('Add new contact successfully!', 'success');
   };
 
