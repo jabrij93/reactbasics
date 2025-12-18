@@ -36,11 +36,15 @@ function App() {
   };
 
   const updateContactHandler = async (contact) => {
-    const response = await api.put(`/contacts/${contact.id}`, contact);
-
-    setContacts(
-      contacts.map((contact) =>
-        contact.id === contact.id ? response.data : contact
+    const response = await api.put(`/contacts/${contact.id}`, {
+      ...contact, // 🔑 force a new object
+    });
+  
+    setContacts((prevContacts) =>
+      prevContacts.map((c) =>
+        c.id === contact.id
+          ? { ...response.data } // 🔑 clone again
+          : c
       )
     );
 

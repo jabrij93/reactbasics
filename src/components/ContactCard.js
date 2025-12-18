@@ -39,17 +39,19 @@ const ContactCard = (props) => {
         </div>
       </div>
 
+      <div className="buttons">
+        <Link to={{ pathname:`/edit/${id}`, state: { contact: props.contacts } }}>
+          <i
+            className='edit alternate outline icon delete-icon blue'
+            onClick={handleUpdateClick}
+          ></i>
+        </Link>
+
         <i
           className='trash alternate outline icon delete-icon'
           onClick={handleDeleteClick}
         ></i>
-
-        <Link to={{ pathname:`/edit/${id}`, state: { contact: props.contacts } }}>
-          <i
-            className='edit alternate outline icon delete-icon'
-            onClick={handleUpdateClick}
-          ></i>
-        </Link>
+      </div>
 
       {/* Confirmation popup */}
       {showConfirm && (
