@@ -27,7 +27,8 @@ function App() {
     showPopup('Add new contact successfully!', 'success');
   };
 
-  const removeContactHandler = (id) => {
+  const removeContactHandler = async (id) => {
+    await api.delete(`contacts/${id}`);
     const newContactList = contacts.filter((contact) => contact.id !== id);
     setContacts(newContactList);
     showPopup('Contact deleted successfully!', 'info');
