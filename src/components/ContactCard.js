@@ -7,9 +7,15 @@ import { useState } from 'react'
 const ContactCard = (props) => {
   const { id, name, email } = props.contacts
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showUpdate, setShowUpdate] = useState(false)
+
 
   const handleDeleteClick = () => {
     setShowConfirm(true)
+  }
+
+  const handleUpdateClick = () => {
+    setShowUpdate(true)
   }
 
   const handleConfirmDelete = () => {
@@ -37,6 +43,13 @@ const ContactCard = (props) => {
           className='trash alternate outline icon delete-icon'
           onClick={handleDeleteClick}
         ></i>
+
+        <Link to={{ pathname:`/edit/${id}`, state: { contact: props.contacts } }}>
+          <i
+            className='edit alternate outline icon delete-icon'
+            onClick={handleUpdateClick}
+          ></i>
+        </Link>
 
       {/* Confirmation popup */}
       {showConfirm && (

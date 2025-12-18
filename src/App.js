@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import Header from './components/Header';
 import AddContact from './components/AddContact';
+import EditContact from './components/EditContact';
 import ContactList from './components/ContactList';
 import PopupMessage from './components/PopupMessage';
 import ContactDetail from './components/ContactDetail';
@@ -33,6 +34,18 @@ function App() {
     setContacts(newContactList);
     showPopup('Contact deleted successfully!', 'info');
   };
+
+  const updateContactHandler = async (contact) => {
+    const response = await api.put(`/contacts/${contact.id}`, contact);
+
+    setContacts(
+      contacts.map((contact) =>
+        contact.id === contact.id ? response.data : contact
+      )
+    );
+
+    showPopup('Update contact successfully!', 'info');
+  }
 
   const showPopup = (message, type) => {
     setPopup({ show: true, message, type });
@@ -83,6 +96,13 @@ function App() {
             render={(props) => (<AddContact 
               {...props} 
               addContactHandler={addContactHandler}
+              />)}
+          />
+          <Route 
+            path="/edit" 
+            render={(props) => (<EditContact 
+              {...props} 
+              updateContactHandler={updateContactHandler}
               />)}
           />
           <Route 
