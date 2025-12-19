@@ -10,6 +10,7 @@ import PopupMessage from './components/PopupMessage';
 import ContactDetail from './components/ContactDetail';
 import api from '../src/api/contacts';
 import './App.css';
+import contacts from '../src/api/contacts';
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
 
   const [contacts, setContacts] = useState([]);  
   const [popup, setPopup] = useState({ show: false, message: '', type: 'success' });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const addContactHandler = async (contact) => {
     
@@ -33,6 +36,21 @@ function App() {
     const newContactList = contacts.filter((contact) => contact.id !== id);
     setContacts(newContactList);
     showPopup('Contact deleted successfully!', 'info');
+  };
+
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if ( searchTerm !== "" ) {
+      const newContactList = contacts.filter((contact) => {
+        return Object.values(contact)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+    } else {
+      setSearchResults(contacts);
+    }
   };
 
   const updateContactHandler = async (contact) => {
@@ -91,8 +109,10 @@ function App() {
             exact 
             render={(props) => (<ContactList 
               {...props} 
-              contacts={contacts} 
+              contacts={searchTerm.length < 1 ? contacts : searchResults}
               getContactId={removeContactHandler} 
+              term={searchTerm}
+              searchKeyword={searchHandler}
               />)}
           />
           <Route 
@@ -123,5 +143,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
