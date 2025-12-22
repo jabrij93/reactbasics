@@ -46,12 +46,19 @@ export function ContactsCrudContextProvider ({ children }) {
         contacts,
         retrieveContacts,
         removeContactHandler,
-        addContactHandler
+        addContactHandler,
+        showPopup,
     }
 
-    return <contactsCrudContext.Provider value={value}>
-        { children }
-    </contactsCrudContext.Provider>
+    return (
+        <contactsCrudContext.Provider value={value}>
+          {children}
+          {popup.show && (
+            <PopupMessage message={popup.message} type={popup.type} />
+          )}
+        </contactsCrudContext.Provider>
+      );
+      
 }
 
 export function useContactsCrud() {
