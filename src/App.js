@@ -107,34 +107,38 @@ function App() {
           <Route 
             path="/" 
             exact 
-            render={(props) => (<ContactList 
-              {...props} 
-              contacts={searchTerm.length < 1 ? contacts : searchResults}
-              getContactId={removeContactHandler} 
-              term={searchTerm}
-              searchKeyword={searchHandler}
-              />)}
+            element={<ContactList />}
+            // render={(props) => (<ContactList 
+            //   {...props} 
+            //   contacts={searchTerm.length < 1 ? contacts : searchResults}
+            //   getContactId={removeContactHandler} 
+            //   term={searchTerm}
+            //   searchKeyword={searchHandler}
+            //   />)}
           />
           <Route 
             path="/add" 
-            render={(props) => (<AddContact 
-              {...props} 
-              addContactHandler={addContactHandler}
-              />)}
+            element={<AddContact />}
+            // render={(props) => (<AddContact 
+            //   {...props} 
+            //   addContactHandler={addContactHandler}
+            //   />)}
           />
           <Route 
             path="/edit" 
-            render={(props) => (<EditContact 
-              {...props} 
-              updateContactHandler={updateContactHandler}
-              />)}
+            element={<EditContact />}
+            // render={(props) => (<EditContact 
+            //   {...props} 
+            //   updateContactHandler={updateContactHandler}
+            //   />)}
           />
           <Route 
             path="/contact/:id" 
-            render={(props) => (<ContactDetail 
-              {...props} 
-              clickHandler={removeContactHandler} 
-              />)} 
+            element={<ContactDetail />}
+            // render={(props) => (<ContactDetail 
+            //   {...props} 
+            //   clickHandler={removeContactHandler} 
+            //   />)} 
           />
         </Routes>
       </Router>
