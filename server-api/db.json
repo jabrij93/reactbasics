@@ -1,9 +1,19 @@
 {
-    "contacts":[
-        {
-                "id": "e9e42ebb-6c1e-42ac-871e-88380a647a93",
-                "name": "njnjewq",
-                "email": "jhnjnj@yaho.com"
-        }
-    ]
+  "contacts": [
+    {
+      "id": "2f3bebac-2725-41b4-adbe-74645b92affe",
+      "name": "tryaddcontact",
+      "email": "tryac@gawqe.commm"
+    },
+    {
+      "id": "fd2a816f-8c08-490d-894b-f21c172dd325",
+      "name": "testdadas",
+      "email": "tesdsad@yaiii.ne"
+    },
+    {
+      "id": "e20a8a7f-79f0-428c-9601-545e4e8a4d0e",
+      "name": "jabss",
+      "email": "jabss@gmet.ma"
+    }
+  ]
 }
