@@ -3,8 +3,15 @@ import './ContactCard.css'
 import { Link } from 'react-router-dom'
 import user from '../images/user.png'
 import { useState } from 'react'
+import { useContactsCrud } from '../context/ContactsCrudContext'
 
 const ContactCard = (props) => {
+  const { removeContactHandler } = useContactsCrud();
+
+  const deleteContact = (id) => {
+    removeContactHandler(id);
+  }
+
   const { id, name, email } = props.contacts
   const [showConfirm, setShowConfirm] = useState(false)
   const [showUpdate, setShowUpdate] = useState(false)
@@ -19,7 +26,7 @@ const ContactCard = (props) => {
   }
 
   const handleConfirmDelete = () => {
-    props.clickHandler(id) // parent handles delete + redirect + popup
+    deleteContact(id) // parent handles delete + redirect + popup
     setShowConfirm(false)
   }
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import Header from './components/Header';
 import AddContact from './components/AddContact';
@@ -32,12 +31,7 @@ function App() {
     showPopup('Add new contact successfully!', 'success');
   };
 
-  const removeContactHandler = async (id) => {
-    await api.delete(`contacts/${id}`);
-    const newContactList = contacts.filter((contact) => contact.id !== id);
-    setContacts(newContactList);
-    showPopup('Contact deleted successfully!', 'info');
-  };
+  
 
   const searchHandler = (searchTerm) => {
     setSearchTerm(searchTerm);
