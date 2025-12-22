@@ -21,18 +21,6 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
-  const addContactHandler = async (contact) => {
-    
-    const request = { id:uuid(), ...contact };
-
-    const response = await api.post("/contacts", request)
-
-    setContacts([...contacts, response.data]);
-    showPopup('Add new contact successfully!', 'success');
-  };
-
-  
-
   const searchHandler = (searchTerm) => {
     setSearchTerm(searchTerm);
     if ( searchTerm !== "" ) {

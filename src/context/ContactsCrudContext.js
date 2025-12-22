@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import api from '../api/contacts';
+import { v4 as uuid } from 'uuid';
 import PopupMessage from '../components/PopupMessage';
 
 
@@ -22,6 +23,17 @@ export function ContactsCrudContextProvider ({ children }) {
         }
       };
 
+    // Add Contacts 
+    const addContactHandler = async (contact) => {
+        const request = { 
+            id:uuid(), 
+            ...contact 
+        };
+        const response = await api.post("/contacts", request)
+        setContacts([...contacts, response.data]);
+        showPopup('Add new contact successfully!', 'success');
+      };  
+
     // Delete Contacts
     const removeContactHandler = async (id) => {
         await api.delete(`contacts/${id}`);
@@ -34,6 +46,7 @@ export function ContactsCrudContextProvider ({ children }) {
         contacts,
         retrieveContacts,
         removeContactHandler,
+        addContactHandler
     }
 
     return <contactsCrudContext.Provider value={value}>
