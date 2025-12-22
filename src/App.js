@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import Header from './components/Header';
@@ -103,7 +103,7 @@ function App() {
     <div className='ui container' style={{ margin: '70px 20px 20px', position: 'relative' }}>
       <Router>
         <Header />
-        <Switch>
+        <Routes>
           <Route 
             path="/" 
             exact 
@@ -136,7 +136,7 @@ function App() {
               clickHandler={removeContactHandler} 
               />)} 
           />
-        </Switch>
+        </Routes>
       </Router>
 
       {popup.show && <PopupMessage message={popup.message} type={popup.type} />}
