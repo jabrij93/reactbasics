@@ -11,6 +11,7 @@ import ContactDetail from './components/ContactDetail';
 import api from '../src/api/contacts';
 import './App.css';
 import contacts from '../src/api/contacts';
+import { ContactsCrudContextProvider } from './context/ContactsCrudContext';
 
 
 function App() {
@@ -74,26 +75,6 @@ function App() {
     setTimeout(() => setPopup({ show: false, message: '', type }), 2000);
   };
 
-  // Retrieve Contacts 
-
-  const retrieveContacts = async () => {
-    const response = await api.get("/contacts");
-    console.log("API response:", response);
-    console.log("API data:", response.data);
-    return response.data;
-  };
-
-  // Load saved contacts from localStorage on app load
-  useEffect(() => {
-    const getAllContacts = async () => {
-      const allContacts = await retrieveContacts();
-      if (allContacts) {
-        setContacts(allContacts);
-      }
-    }
-    getAllContacts();
-  }, []);
-
   // Save contacts to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
@@ -103,44 +84,27 @@ function App() {
     <div className='ui container' style={{ margin: '70px 20px 20px', position: 'relative' }}>
       <Router>
         <Header />
-        <Routes>
-          <Route 
-            path="/" 
-            exact 
-            element={<ContactList />}
-            // render={(props) => (<ContactList 
-            //   {...props} 
-            //   contacts={searchTerm.length < 1 ? contacts : searchResults}
-            //   getContactId={removeContactHandler} 
-            //   term={searchTerm}
-            //   searchKeyword={searchHandler}
-            //   />)}
-          />
-          <Route 
-            path="/add" 
-            element={<AddContact />}
-            // render={(props) => (<AddContact 
-            //   {...props} 
-            //   addContactHandler={addContactHandler}
-            //   />)}
-          />
-          <Route 
-            path="/edit" 
-            element={<EditContact />}
-            // render={(props) => (<EditContact 
-            //   {...props} 
-            //   updateContactHandler={updateContactHandler}
-            //   />)}
-          />
-          <Route 
-            path="/contact/:id" 
-            element={<ContactDetail />}
-            // render={(props) => (<ContactDetail 
-            //   {...props} 
-            //   clickHandler={removeContactHandler} 
-            //   />)} 
-          />
-        </Routes>
+        <ContactsCrudContextProvider >
+          <Routes>
+            <Route 
+              path="/" 
+              exact 
+              element={<ContactList />}
+            />
+            <Route 
+              path="/add" 
+              element={<AddContact />}
+            />
+            <Route 
+              path="/edit" 
+              element={<EditContact />}
+            />
+            <Route 
+              path="/contact/:id" 
+              element={<ContactDetail />}
+            />
+          </Routes>
+        </ContactsCrudContextProvider>
       </Router>
 
       {popup.show && <PopupMessage message={popup.message} type={popup.type} />}
