@@ -3,11 +3,12 @@ import api from '../api/contacts';
 import { v4 as uuid } from 'uuid';
 import PopupMessage from '../components/PopupMessage';
 
-
 const contactsCrudContext = createContext();
 
 export function ContactsCrudContextProvider ({ children }) {
     const [contacts, setContacts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
     const [popup, setPopup] = useState({ show: false, message: '', type: 'success' });
 
     const showPopup = (message, type) => {
@@ -50,7 +51,22 @@ export function ContactsCrudContextProvider ({ children }) {
     
         showPopup('Update contact successfully!', 'info');
       }
-      
+    
+      // Search Contacts Functionality
+      const searchHandler = (searchTerm) => {
+        setSearchTerm(searchTerm);
+        if ( searchTerm !== "" ) {
+          const newContactList = contacts.filter((contact) => {
+            return Object.values(contact)
+              .join(" ")
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase());
+          });
+          setSearchResults(newContactList);
+        } else {
+          setSearchResults(contacts);
+        }
+      };
 
     // Delete Contacts
     const removeContactHandler = async (id) => {
@@ -62,6 +78,9 @@ export function ContactsCrudContextProvider ({ children }) {
 
     const value = {
         contacts,
+        searchTerm,
+        searchResults,
+        searchHandler,
         retrieveContacts,
         removeContactHandler,
         addContactHandler,

@@ -15,36 +15,15 @@ import { ContactsCrudContextProvider } from './context/ContactsCrudContext';
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
-
-  const [contacts, setContacts] = useState([]);  
+ 
   const [popup, setPopup] = useState({ show: false, message: '', type: 'success' });
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-
-  const searchHandler = (searchTerm) => {
-    setSearchTerm(searchTerm);
-    if ( searchTerm !== "" ) {
-      const newContactList = contacts.filter((contact) => {
-        return Object.values(contact)
-          .join(" ")
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
-      });
-      setSearchResults(newContactList);
-    } else {
-      setSearchResults(contacts);
-    }
-  };
+  
 
   const showPopup = (message, type) => {
     setPopup({ show: true, message, type });
     setTimeout(() => setPopup({ show: false, message: '', type }), 2000);
   };
 
-  // Save contacts to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
 
   return (
     <div className='ui container' style={{ margin: '70px 20px 20px', position: 'relative' }}>
