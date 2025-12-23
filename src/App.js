@@ -36,22 +36,6 @@ function App() {
     }
   };
 
-  const updateContactHandler = async (contact) => {
-    const response = await api.put(`/contacts/${contact.id}`, {
-      ...contact, // 🔑 force a new object
-    });
-  
-    setContacts((prevContacts) =>
-      prevContacts.map((c) =>
-        c.id === contact.id
-          ? { ...response.data } // 🔑 clone again
-          : c
-      )
-    );
-
-    showPopup('Update contact successfully!', 'info');
-  }
-
   const showPopup = (message, type) => {
     setPopup({ show: true, message, type });
     setTimeout(() => setPopup({ show: false, message: '', type }), 2000);
@@ -78,7 +62,7 @@ function App() {
               element={<AddContact />}
             />
             <Route 
-              path="/edit" 
+              path="/contacts/:id" 
               element={<EditContact />}
             />
             <Route 

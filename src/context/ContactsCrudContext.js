@@ -34,6 +34,24 @@ export function ContactsCrudContextProvider ({ children }) {
         showPopup('Add new contact successfully!', 'success');
       };  
 
+    // Update Contacts
+    const updateContactHandler = async (contact) => {
+        const response = await api.put(`/contacts/${contact.id}`, {
+          ...contact, 
+        });
+      
+        setContacts((prevContacts) =>
+          prevContacts.map((c) =>
+            c.id === contact.id
+              ? { ...response.data } 
+              : c
+          )
+        );
+    
+        showPopup('Update contact successfully!', 'info');
+      }
+      
+
     // Delete Contacts
     const removeContactHandler = async (id) => {
         await api.delete(`contacts/${id}`);
@@ -47,6 +65,7 @@ export function ContactsCrudContextProvider ({ children }) {
         retrieveContacts,
         removeContactHandler,
         addContactHandler,
+        updateContactHandler,
         showPopup,
     }
 

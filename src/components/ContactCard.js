@@ -47,7 +47,10 @@ const ContactCard = (props) => {
       </div>
 
       <div className="buttons">
-        <Link to={{ pathname:`/edit/${id}`, state: { contact: props.contacts } }}>
+        <Link 
+          to={`/contacts/${id}`} 
+          state = {{ contact: props.contacts }}
+        >
           <i
             className='edit alternate outline icon delete-icon blue'
             onClick={handleUpdateClick}
