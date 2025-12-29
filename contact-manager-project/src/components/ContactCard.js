@@ -3,17 +3,30 @@ import './ContactCard.css'
 import { Link } from 'react-router-dom'
 import user from '../images/user.png'
 import { useState } from 'react'
+import { useContactsCrud } from '../context/ContactsCrudContext'
 
 const ContactCard = (props) => {
+  const { removeContactHandler } = useContactsCrud();
+
+  const deleteContact = (id) => {
+    removeContactHandler(id);
+  }
+
   const { id, name, email } = props.contacts
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showUpdate, setShowUpdate] = useState(false)
+
 
   const handleDeleteClick = () => {
     setShowConfirm(true)
   }
 
+  const handleUpdateClick = () => {
+    setShowUpdate(true)
+  }
+
   const handleConfirmDelete = () => {
-    props.clickHandler(id) // parent handles delete + redirect + popup
+    deleteContact(id) // parent handles delete + redirect + popup
     setShowConfirm(false)
   }
 
@@ -33,10 +46,22 @@ const ContactCard = (props) => {
         </div>
       </div>
 
+      <div className="buttons">
+        <Link 
+          to={`/contacts/${id}`} 
+          state = {{ contact: props.contacts }}
+        >
+          <i
+            className='edit alternate outline icon delete-icon blue'
+            onClick={handleUpdateClick}
+          ></i>
+        </Link>
+
         <i
           className='trash alternate outline icon delete-icon'
           onClick={handleDeleteClick}
         ></i>
+      </div>
 
       {/* Confirmation popup */}
       {showConfirm && (

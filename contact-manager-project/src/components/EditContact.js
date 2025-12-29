@@ -1,39 +1,42 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import { useContactsCrud } from '../context/ContactsCrudContext'
 import { useNavigate } from 'react-router-dom';
 
-const AddContact = () => {
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const { addContactHandler } = useContactsCrud();
-    const navigate = useNavigate();    
+const EditContact = () => {
+    const location = useLocation();
+    const { id, name, email } = location.state.contact;
+    const [newName, setNewName] = useState(name);
+    const [newEmail, setNewEmail] = useState(email);
+    const { updateContactHandler } = useContactsCrud();
+    const navigate = useNavigate();
 
-    const add = (e) => {
+    const update = (e) => {
         e.preventDefault();
-        if (name === "" || email === "") {
+        if (newName === "" || newEmail === "") {
             alert("All the fields are mandatory!");
             return;
         }
-        addContactHandler({name, email});
-        setName('')
-        setEmail('')
+        updateContactHandler({id, name: newName, email: newEmail});
+        setNewName('');
+        setNewEmail('');
         navigate("/");
     }
 
         return (
             <div className='ui main'>
-                <h2>Add Contact</h2>
+                <h2>Update Contact</h2>
 
-                <form className='ui form' onSubmit={add}> 
+                <form className='ui form' onSubmit={update}> 
                     <div className='field'>
                         <label>Name</label>
                         <input 
                             type='text' 
                             name='name' 
-                            value={name}
+                            value={newName}
                             placeholder='Name'
                             style={{width: '50%'}} 
-                            onChange={ (e) => {setName(e.target.value)}}
+                            onChange={ (e) => setNewName(e.target.value)}
                         />
                     </div>
                     <div className='field'>
@@ -41,16 +44,16 @@ const AddContact = () => {
                         <input 
                             type='text' 
                             name='email' 
-                            value={email}
+                            value={newEmail}
                             placeholder='Email'
                             style={{width: '50%'}}
-                            onChange={ (e) => {setEmail(e.target.value)}}
+                            onChange={ (e) => setNewEmail(e.target.value)}
                         />
                     </div>
-                    <button className='ui button blue'>Add</button>
+                    <button className='ui button blue'>Update</button>
                 </form>
             </div>
         )
-    }
+}
 
-export default AddContact;
+export default EditContact;
